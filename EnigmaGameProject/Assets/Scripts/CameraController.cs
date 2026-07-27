@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class CameraController : MonoBehaviour
 {
     public Transform PlayerBody;
-    public float MouseSensitivity = 100f;
+    public float MouseSensitivity = 50f;
 
     private float _xRotation = 0f;
 
@@ -21,8 +21,8 @@ public class CameraController : MonoBehaviour
 
         Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 
-        float mouseX = mouseDelta.x * MouseSensitivity;
-        float mouseY = mouseDelta.y * MouseSensitivity;
+        float mouseX = mouseDelta.x * MouseSensitivity * Time.deltaTime;
+        float mouseY = mouseDelta.y * MouseSensitivity * Time.deltaTime;
 
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, -90f, 90f);

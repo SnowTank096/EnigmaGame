@@ -259,10 +259,7 @@ GameObject:
   - component: {fileID: 208857041}
   - component: {fileID: 208857044}
   - component: {fileID: 208857045}
-<<<<<<< Updated upstream
-=======
   - component: {fileID: 208857046}
->>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -401,9 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   PlayerBody: {fileID: 1376662469}
-  MouseSensitivity: 100
-<<<<<<< Updated upstream
-=======
+  MouseSensitivity: 50
 --- !u!114 &208857046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,9 +411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad053b7cfd62c649ae4e4a6eae25438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  InteractorSource: {fileID: 208857043}
-  InteractRange: 5
->>>>>>> Stashed changes
+  InteractorSource: {fileID: 1376662469}
+  InteractRange: 2
 --- !u!1 &510023120
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,11 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   MovementSpeed: 10
-<<<<<<< Updated upstream
-  RotationSpeed: 5
-=======
-  RotationSpeed: 100
->>>>>>> Stashed changes
+  RotationSpeed: 50
 --- !u!143 &1376662465
 CharacterController:
   m_ObjectHideFlags: 0
@@ -736,8 +726,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &1961760584
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2944a0c1590795e478a98e5b0ded7c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NumGen
+  rotationAxis: {x: 0, y: 1, z: 0}
+  degreesPerActivation: 30
 --- !u!65 &1961760586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -863,7 +853,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -872,7 +861,4 @@ SceneRoots:
   - {fileID: 1926468518}
   - {fileID: 1376662469}
   - {fileID: 510023122}
-<<<<<<< Updated upstream
-=======
   - {fileID: 1961760589}
->>>>>>> Stashed changes
