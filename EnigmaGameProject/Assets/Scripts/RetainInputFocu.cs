@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro; // Remove if using standard legacy UI InputField
 
-public class RetainInputFocus : MonoBehaviour
+public class RetainInputFocu : MonoBehaviour
 {
     private TMP_InputField inputField; // Change to 'InputField' if using Legacy UI
 
