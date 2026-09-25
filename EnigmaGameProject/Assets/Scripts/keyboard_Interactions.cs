@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 
 
 public class keyboard_interactions : MonoBehaviour
@@ -77,7 +76,6 @@ public class keyboard_interactions : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     
     void Update()
     {   
@@ -137,7 +135,7 @@ public class keyboard_interactions : MonoBehaviour
             else if (scrollDelta.y < 0)
             {
                 rotorTextObject.text = scrollCount.ToString();
-                 scrollCount--;
+                scrollCount--;
                 if (scrollCount < 1)
                 {
                     scrollCount = 26;
@@ -160,7 +158,7 @@ public class keyboard_interactions : MonoBehaviour
                     {
                         if (keyTransform != null)
                         {
-                            animateKeyPress(keyTransform);
+                            animateKeyPress(keyTransform,GetComponent<EnigmaInternals>().Convert(char.Parse(buttonPressed), int.Parse(rotorText1.text), int.Parse(rotorText2.text), int.Parse(rotorText3.text)));
                             if (keyIsPressed == 0)
                             {
                                 keyIsPressed = 1;
@@ -173,6 +171,8 @@ public class keyboard_interactions : MonoBehaviour
                         if (Time.time - lastClick <= 0.25f)
                         {
                             addVector3(GameObject.Find("Plug"+int.Parse(keyControl.name)));
+                            char char1 = GameObject.Find("Plug"+int.Parse(keyControl.name)).GetComponent<PlugSpawner>().char1;
+                            GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugChars.Remove(char1); // get the component and get char1 from plugs and use it to remove the char1 and char2 from the dictionar in engima internals with this GameObject.Find("Plug"+int.Parse(keyControl.name)).GetComponent<EnigmaInternals>().plugChars.Remove(char1);
                             Destroy(GameObject.Find("Plug"+int.Parse(keyControl.name)));
                         }
                         else if (!GameObject.Find("Plug"+keyControl.name))
@@ -199,13 +199,13 @@ public class keyboard_interactions : MonoBehaviour
         }
     }
     
-    void animateKeyPress(Transform keyTransform)
+    void animateKeyPress(Transform keyTransform,string lightPosName)
     {
         Vector3 initialPos = keyTransform.localPosition;
 
         Vector3 pressedPos = initialPos + new Vector3(0,-0.05f,0);
-    
-        lightObject.localPosition = new Vector3(keyTransform.localPosition.x + 0.6845964f,1.523f,keyTransform.localPosition.z);
+        _keyObjects.TryGetValue("Key_"+lightPosName, out Transform lightTransform);
+        lightObject.localPosition = new Vector3(lightTransform.localPosition.x + 0.6845964f,1.523f,lightTransform.localPosition.z);
 
         keyTransform.localPosition = pressedPos;
     }

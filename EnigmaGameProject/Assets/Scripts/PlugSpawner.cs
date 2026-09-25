@@ -15,14 +15,16 @@ public class PlugSpawner : MonoBehaviour
     private Vector3 plugStartVector;
     private Vector3 spawnPos;
     private GameObject newSegment;
+
+    public char char1;
+    
     public keyboard_interactions keyInterScript;
     public int firstPlugScroll;
     public int secondPlugScroll;
-
     public int segmentCount = 6; //How many segments you want
     private int plugScroll = 0;
     public float segmentLength = 0.4f; // how long you want the segments
-
+    public char[] plugNames = new char[] {'Q','W','E','R','T','Z','U','I','O','A','S','D','F','G','H','J','K','P','Y','X','C','V','B','N','M','L'};
     private Transform[] spawnedTransforms; //array that store the trnasform of each rope segment
     private RopeVisualizer ropeVisualizer; //rope visualizer script
 
@@ -106,6 +108,7 @@ public class PlugSpawner : MonoBehaviour
         {
             plugScroll = plugPositions.Length - 1;
         } 
+        Debug.Log(GameObject.Find("enigma machine v1"));
         if (plugScroll > plugPositions.Length - 1)
         {
             plugScroll = 0;
@@ -116,6 +119,7 @@ public class PlugSpawner : MonoBehaviour
         }
         if (Mouse.current.leftButton.wasPressedThisFrame && endTarget == null)
         {
+            char char2;
             if (startAnchor == null)
             {
                 spawnedTransforms = new Transform[segmentCount]; // sets array length to the amount of segments there are
@@ -131,7 +135,7 @@ public class PlugSpawner : MonoBehaviour
                 list.RemoveAt(firstPlugScroll);
                 plugPositions = list.ToArray();
                 keyInterScript.plugPositions = plugPositions;
-
+                char1 = plugNames[plugScroll];
             }
             else
             {
@@ -144,6 +148,8 @@ public class PlugSpawner : MonoBehaviour
                 list.RemoveAt(secondPlugScroll + 1);
                 plugPositions = list.ToArray();
                 keyInterScript.plugPositions = plugPositions;
+                char2 = plugNames[plugScroll];
+                GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugChars.Add(char1,char2);
             }
         }
     }
