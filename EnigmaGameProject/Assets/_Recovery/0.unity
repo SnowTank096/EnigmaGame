@@ -444,13 +444,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208857040}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -9.179, y: -0.63, z: 5.975}
+  m_LocalRotation: {x: 0.06886845, y: 0.7037451, z: -0.068868466, w: 0.7037451}
+  m_LocalPosition: {x: -9.179, y: 0.89400005, z: 5.975}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1376662469}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.178, y: 90, z: 0}
 --- !u!114 &208857044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2059,8 +2059,9 @@ GameObject:
   - component: {fileID: 699322939611425323}
   - component: {fileID: 699322939611425325}
   - component: {fileID: 699322939611425324}
+  - component: {fileID: 699322939611425326}
   m_Layer: 0
-  m_Name: enigma machine v1 (2)
+  m_Name: enigma machine v1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2225,6 +2226,7 @@ MonoBehaviour:
   rotorText1: {fileID: 1013039485}
   rotorText2: {fileID: 1938600434}
   rotorText3: {fileID: 611590644}
+  plugPositions: []
   lightObject: {fileID: 1065698837}
   rotor1: {fileID: 69103354}
   interactionLayer:
@@ -2247,36 +2249,14 @@ MonoBehaviour:
   startAnchor: {fileID: 0}
   endTarget: {fileID: 0}
   Plug: {fileID: 8245885159042808861}
-  plugPositions:
-  - {x: -21.2485, y: 1.477, z: 4.7861}
-  - {x: -21.2485, y: 1.477, z: 4.5647}
-  - {x: -21.2485, y: 1.477, z: 4.3685}
-  - {x: -21.2485, y: 1.477, z: 4.1967}
-  - {x: -21.2485, y: 1.477, z: 4.0037}
-  - {x: -21.2485, y: 1.477, z: 3.8028}
-  - {x: -21.2485, y: 1.477, z: 3.5997}
-  - {x: -21.2485, y: 1.477, z: 3.4153}
-  - {x: -21.2485, y: 1.477, z: 3.238}
-  - {x: -21.2485, y: 1.2696, z: 4.6926}
-  - {x: -21.2485, y: 1.2696, z: 4.4815}
-  - {x: -21.2485, y: 1.2696, z: 4.2824}
-  - {x: -21.2485, y: 1.2696, z: 4.109}
-  - {x: -21.2485, y: 1.2696, z: 3.9075}
-  - {x: -21.2485, y: 1.2696, z: 3.7089}
-  - {x: -21.2485, y: 1.2696, z: 3.521}
-  - {x: -21.2485, y: 1.2696, z: 3.3215}
-  - {x: -21.2485, y: 1.0136, z: 4.7935}
-  - {x: -21.2485, y: 1.0136, z: 4.5867}
-  - {x: -21.2485, y: 1.0136, z: 4.3852}
-  - {x: -21.2485, y: 1.0136, z: 4.2035}
-  - {x: -21.2485, y: 1.0136, z: 4.0076}
-  - {x: -21.2485, y: 1.0136, z: 3.8135}
-  - {x: -21.2485, y: 1.0136, z: 3.6112}
-  - {x: -21.2485, y: 1.0136, z: 3.4115}
-  - {x: -21.2485, y: 1.0136, z: 3.2336}
   BlackPlainMaterial: {fileID: 2100000, guid: 509785317d315a74a8e2fa120399f9a7, type: 2}
+  char1: 0
+  keyInterScript: {fileID: 0}
+  firstPlugScroll: 0
+  secondPlugScroll: 0
   segmentCount: 6
   segmentLength: 0.3
+  plugNames: 510057004500520054005a00550049004f004100530044004600470048004a004b005000590058004300560042004e004d004c00
 --- !u!120 &699322939611425324
 LineRenderer:
   serializedVersion: 3
@@ -2400,6 +2380,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RopeVisualizer
   ropeSegments: []
+--- !u!114 &699322939611425326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216082822889369747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc2894257b3543ebb30ea10a4e51926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnigmaInternals
 --- !u!23 &721872565311202968
 MeshRenderer:
   m_ObjectHideFlags: 0
