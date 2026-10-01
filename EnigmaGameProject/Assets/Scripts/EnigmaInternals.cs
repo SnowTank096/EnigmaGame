@@ -5,10 +5,8 @@ using System.Text;
 
 public class EnigmaInternals : MonoBehaviour
 {
-    public System.Collections.Generic.Dictionary<char, char> plugChars = new Dictionary<char, char>();
-    private char letter;
-    private List<EnigmaPlug> plugsInter;
-
+    [System.NonSerialized]
+    public Dictionary<char, char> plugChars = new Dictionary<char, char>();
     private char[] config1;
     private char[] config2;
     private char[] config3;
@@ -106,7 +104,7 @@ public class EnigmaInternals : MonoBehaviour
         else return null;
 
         // Plugboard Forward    
-        if(plugChars.TryGetValue(char1, out char char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
+        if(plugChars.TryGetValue(theChar, out char char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
             theChar = char2;
         }
         // Rotors Forward
@@ -116,15 +114,11 @@ public class EnigmaInternals : MonoBehaviour
         // Rotors Backward
         theChar = rotorBackwardSir(theChar,rotorStepCount1,rotorStepCount2,rotorStepCount3);
         // Plugboard Backward
-        if(plugChars.TryGetValue(char1, out char char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
+        if(plugChars.TryGetValue(theChar, out char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
             theChar = char2;
         }
         // Save character
         convertedLetter = theChar;
         return convertedLetter.ToString();
     }
-}
-
-internal class EnigmaPlug
-{
 }

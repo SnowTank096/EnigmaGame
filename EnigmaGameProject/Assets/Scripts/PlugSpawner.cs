@@ -97,18 +97,15 @@ public class PlugSpawner : MonoBehaviour
         if (mouseDelta.y > 0)
         {
             plugScroll++;
-            Debug.Log(plugScroll);
         }
         else if (mouseDelta.y < 0)
         {
             plugScroll--;
-            Debug.Log(plugScroll);
         }
         if (plugScroll < 0)
         {
             plugScroll = plugPositions.Length - 1;
         } 
-        Debug.Log(GameObject.Find("enigma machine v1"));
         if (plugScroll > plugPositions.Length - 1)
         {
             plugScroll = 0;
