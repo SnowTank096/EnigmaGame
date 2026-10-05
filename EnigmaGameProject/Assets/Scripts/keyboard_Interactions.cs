@@ -15,7 +15,7 @@ public class keyboard_interactions : MonoBehaviour
     public TMPro.TextMeshPro rotorText1; 
     public TMPro.TextMeshPro rotorText2;
     public TMPro.TextMeshPro rotorText3;
-    private int scrollCount;
+    private int scrollCount = 1;
     private PlugSpawner plugSpawner;
     private float lastClick;
     public Vector3[] plugPositions;
@@ -125,6 +125,7 @@ public class keyboard_interactions : MonoBehaviour
                     }
                 }
                 scrollCount++;
+                Debug.Log(scrollCount);
                 rotorTextObject.text = scrollCount.ToString();
                 if (scrollCount > 25)
                 {

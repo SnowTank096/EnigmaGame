@@ -38,23 +38,26 @@ public class EnigmaInternals : MonoBehaviour
         {
             return letter;
         }
-        int index = (((letter - 'A') + rotorStepCount1)% 26);
-        Debug.Log(index);
-        char letter2 = config1[index];
-        index = (((letter2 - 'A') + rotorStepCount2)% 26);
-        Debug.Log(index);
-        char letter3 = config2[index];
-        index = (((letter3 - 'A') + rotorStepCount3)% 26);
-        return config3[index];
+        int index = ((letter - 'A' + rotorStepCount1) % 26);
+        letter = config1[index];
+        int signal = (letter - 'A' - rotorStepCount1 + 26) % 26;
+
+        index = ((signal + rotorStepCount2) % 26);
+        char letter2 = config2[index];
+        signal = (letter2 - 'A' - rotorStepCount2 + 26) % 26;
+
+        index = ((signal + rotorStepCount3) % 26);
+        char letter3 = config3[index];
+        signal = (letter3 - 'A' - rotorStepCount3 + 26) % 26;
+        return (char)(signal+'A');
     }
     public char reflect(char letter)
     {
         char [] config;
         config = new char[]
         {
-            'Y', 'R', 'U', 'H', 'Q', 'S', 'L', 'D', 'P',
-            'X', 'N', 'G', 'O', 'K', 'M', 'I', 'E', 'B',
-            'F', 'Z', 'C', 'W', 'V', 'J', 'A', 'T'
+            'Y', 'R', 'U', 'H', 'Q', 'S', 'L', 'D', 'P', 'X', 'N', 'G', 'O',
+            'K', 'M', 'I', 'E', 'B', 'F', 'Z', 'C', 'W', 'V', 'J', 'A', 'T'
         };
         int index = letter - 'A';
         return config[index];
@@ -63,36 +66,33 @@ public class EnigmaInternals : MonoBehaviour
     public char rotorBackwardSir(char letter,int rotorStepCount1,int rotorStepCount2, int rotorStepCount3)
     {
         letter = char.ToUpper(letter);
-
-        config1 = new char[]
+        char [] config1Back = new char[26];
+        char [] config2Back = new char[26];
+        char [] config3Back = new char[26];
+        for(int i = 0; i < 26; i++)
         {
-            'H', 'D', 'R', 'K', 'B', 'F', 'A', 'C', 'O',
-            'Y', 'G', 'M', 'J', 'X', 'N', 'T', 'I', 'Q',
-            'Z', 'V', 'P', 'W', 'U', 'S', 'L', 'E'
-        };
-        config2 = new char[]
-        {
-            'G', 'P', 'X', 'C', 'M', 'A', 'N', 'Q', 'I',
-            'W', 'O', 'Z', 'R', 'V', 'B', 'U', 'S', 'H',
-            'F', 'T', 'K', 'E', 'J', 'L', 'D', 'Y'
-        };
-        config3 = new char[]
-        {
-            'B', 'C', 'D', 'T', 'M', 'S', 'F', 'O', 'X',
-            'Q', 'H', 'J', 'N', 'Z', 'V', 'G', 'P', 'W',
-            'R', 'E', 'Y', 'U', 'A', 'I', 'K', 'L'
-        };
+            config1Back[config1[i]-'A'] = (char)(i + 'A');
+            config2Back[config2[i]-'A'] = (char)(i + 'A');
+            config3Back[config3[i]-'A'] = (char)(i + 'A');
+        }
         
         if (letter < 'A' || letter > 'Z')
         {
             return letter;
         }
-        int index = (((letter - 'A') + rotorStepCount1)% 26);
-        char letter2 = config1[index];
-        index = (((letter2 - 'A') + rotorStepCount2)% 26);
-        char letter3 = config2[index];
-        index = (((letter3 - 'A') + rotorStepCount3)% 26);
-        return config3[index];
+        int index = ((letter - 'A' + rotorStepCount3) % 26);
+        char letter3 = config3Back[index];
+        int signal = (letter3 - 'A' - rotorStepCount3 + 26) % 26;
+
+        index = ((signal + rotorStepCount2) % 26);
+        char letter2 = config2Back[index];
+        signal = (letter2 - 'A' - rotorStepCount2 + 26) % 26;
+
+
+        index = ((signal + rotorStepCount1) % 26);
+        char letter1 = config1Back[index];
+        signal = (letter1 - 'A' - rotorStepCount1 + 26) % 26;
+        return (char)(signal+'A');
     }
     public string Convert(char letter,int rotorStepCount1,int rotorStepCount2,int rotorStepCount3)
     {
