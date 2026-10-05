@@ -1,4 +1,4 @@
-
+ 
 using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
@@ -38,11 +38,13 @@ public class EnigmaInternals : MonoBehaviour
         {
             return letter;
         }
-        int index = (((letter - 'A') + rotorStepCount1)% 26) - 1;
+        int index = (((letter - 'A') + rotorStepCount1)% 26);
+        Debug.Log(index);
         char letter2 = config1[index];
-        index = (((letter2 - 'A') + rotorStepCount2)% 26) - 1;
+        index = (((letter2 - 'A') + rotorStepCount2)% 26);
+        Debug.Log(index);
         char letter3 = config2[index];
-        index = (((letter3 - 'A') + rotorStepCount3)% 26) - 1;
+        index = (((letter3 - 'A') + rotorStepCount3)% 26);
         return config3[index];
     }
     public char reflect(char letter)
@@ -85,25 +87,20 @@ public class EnigmaInternals : MonoBehaviour
         {
             return letter;
         }
-        int index = (((letter - 'A') + rotorStepCount1)% 26) - 1;
+        int index = (((letter - 'A') + rotorStepCount1)% 26);
         char letter2 = config1[index];
-        index = (((letter2 - 'A') + rotorStepCount2)% 26) - 1;
+        index = (((letter2 - 'A') + rotorStepCount2)% 26);
         char letter3 = config2[index];
-        index = (((letter3 - 'A') + rotorStepCount3)% 26) - 1;
+        index = (((letter3 - 'A') + rotorStepCount3)% 26);
         return config3[index];
     }
     public string Convert(char letter,int rotorStepCount1,int rotorStepCount2,int rotorStepCount3)
     {
         char convertedLetter;
-        // Starting conversion
-        char theChar = char.ToUpper(letter);
+        // Starting conversion 
         // Non-letter characters are left unchanged.
-        if (theChar < 'A' || theChar > 'Z')
-        {
-        }
-        else return null;
-
-        // Plugboard Forward    
+        char theChar = char.ToUpper(letter);
+        // Plugboard Forward   
         if(plugChars.TryGetValue(theChar, out char char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
             theChar = char2;
         }
@@ -119,6 +116,7 @@ public class EnigmaInternals : MonoBehaviour
         }
         // Save character
         convertedLetter = theChar;
+        Debug.Log(convertedLetter.ToString()+" letter");
         return convertedLetter.ToString();
     }
 }

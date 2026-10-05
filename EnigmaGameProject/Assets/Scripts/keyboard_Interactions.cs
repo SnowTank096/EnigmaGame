@@ -112,7 +112,7 @@ public class keyboard_interactions : MonoBehaviour
                             rotorText1.text = (textNum += 1).ToString();
                             rotorText2.text = "0";
                         }
-                        else
+                        else if(rotorText3.text == "26")
                         {
                             int textNum = int.Parse(rotorText2.text);
                             rotorText2.text = (textNum += 1).ToString();
