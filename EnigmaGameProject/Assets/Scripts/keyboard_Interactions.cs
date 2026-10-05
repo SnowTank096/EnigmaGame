@@ -32,9 +32,10 @@ public class keyboard_interactions : MonoBehaviour
 
     void Start()
     {
-        _keyObjects = new System.Collections.Generic.Dictionary<string, Transform>();
-        plugSpawner = GetComponent<PlugSpawner>();
-        plugPositions = new Vector3[]
+        _keyObjects = new System.Collections.Generic.Dictionary<string, Transform>(); //creates a dictionary called keyobjects which will take the name of the key object and output its tranform
+        lightGrid = new System.Collections.Generic.Dictionary<string, Vector3>(); //initializes a dictionary which will output the position of the light name it got
+        plugSpawner = GetComponent<PlugSpawner>(); //gets the plugSpawner script
+        plugPositions = new Vector3[] //initializes all the positions that plugs can be
         {
             new Vector3(-21.2485f,1.477f,4.7861f),
             new Vector3(-21.2485f,1.477f,4.5647f),
@@ -63,8 +64,7 @@ public class keyboard_interactions : MonoBehaviour
             new Vector3(-21.2485f,1.0136f,3.4115f),
             new Vector3(-21.2485f,1.0136f,3.2336f)
         };
-        lightGrid = new System.Collections.Generic.Dictionary<string, Vector3>();
-        //for each looks through every object or child in the parent the script is attached to. The capital Transform is the data type the for each looks for and saves to child
+        //for each looks through every object or child in the parent the script is attached to and adds the name and position to the key objects dictionary and the light objects dictionary
         foreach(Transform child in transform)
         {
             if (child.name.StartsWith("Key"))
