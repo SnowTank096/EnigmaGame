@@ -5,11 +5,17 @@ using System.Text;
 
 public class EnigmaInternals : MonoBehaviour
 {
+
     [System.NonSerialized]
     public Dictionary<char, char> plugChars = new Dictionary<char, char>();
+    [System.NonSerialized]
+    public Dictionary<char, char> plugCharsReverse = new Dictionary<char, char>();
+    public int[] plugIndex = new int[] {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
     private char[] config1;
     private char[] config2;
     private char[] config3;
+
+    [SerializeField] public bool selectingPlugs;
 
     public char rotorForwardSir(char letter,int rotorStepCount1,int rotorStepCount2, int rotorStepCount3)
     {
@@ -100,10 +106,15 @@ public class EnigmaInternals : MonoBehaviour
         // Starting conversion 
         // Non-letter characters are left unchanged.
         char theChar = char.ToUpper(letter);
-        // Plugboard Forward   
-        if(plugChars.TryGetValue(theChar, out char char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
+        char char2;
+        // Plugboard Forward 
+        Debug.Log("IN: "+theChar);
+        if(plugChars.TryGetValue(theChar, out char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
+            theChar = char2;
+        } else if(plugCharsReverse.TryGetValue(theChar, out char2)){
             theChar = char2;
         }
+        Debug.Log(theChar);
         // Rotors Forward
         theChar = rotorForwardSir(theChar,rotorStepCount1,rotorStepCount2,rotorStepCount3);
         // Reflector
@@ -111,12 +122,15 @@ public class EnigmaInternals : MonoBehaviour
         // Rotors Backward
         theChar = rotorBackwardSir(theChar,rotorStepCount1,rotorStepCount2,rotorStepCount3);
         // Plugboard Backward
-        if(plugChars.TryGetValue(theChar, out char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
+        Debug.Log(theChar);
+        if(plugCharsReverse.TryGetValue(theChar, out char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
+            theChar = char2;
+        } else if(plugChars.TryGetValue(theChar, out char2)){//check if char1 is in the dictionary and if it is output char2 and set it to char 1
             theChar = char2;
         }
+        Debug.Log("OUT: "+theChar);
         // Save character
         convertedLetter = theChar;
-        Debug.Log(convertedLetter.ToString()+" letter");
         return convertedLetter.ToString();
     }
 }

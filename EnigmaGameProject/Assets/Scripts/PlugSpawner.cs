@@ -17,6 +17,12 @@ public class PlugSpawner : MonoBehaviour
     private GameObject newSegment;
 
     public char char1;
+    public char char2;
+
+    public int firstInt;
+    public int secondInt;
+
+    public double timer;
     
     public keyboard_interactions keyInterScript;
     public int firstPlugScroll;
@@ -28,6 +34,11 @@ public class PlugSpawner : MonoBehaviour
     private Transform[] spawnedTransforms; //array that store the trnasform of each rope segment
     private RopeVisualizer ropeVisualizer; //rope visualizer script
 
+    [SerializeField] public AudioClip plugSound;
+    [SerializeField] public AudioClip electricSound;
+
+    private AudioSource audioSource;
+
     void Start()
     {
         keyInterScript = GameObject.Find("enigma machine v1").GetComponent<keyboard_interactions>();
@@ -37,6 +48,8 @@ public class PlugSpawner : MonoBehaviour
         Plug = GameObject.Find("Plug");
         BlackPlainMaterial = Resources.Load<Material>("BlackPlainMaterial");
         SetAnchors();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = .5f;
     }
     void SetAnchors()
     {
@@ -87,7 +100,7 @@ public class PlugSpawner : MonoBehaviour
         }
         if (ropeVisualizer != null)
         {
-            ropeVisualizer.ropeSegments = spawnedTransforms; //puts the rope segments tranforms into the rope visulaizer array
+            ropeVisualizer.ropeSegments = spawnedTransforms; //puts the rope segments transforms into the rope visulaizer array
             ropeVisualizer.enabled = true;
         }
     }
@@ -116,9 +129,15 @@ public class PlugSpawner : MonoBehaviour
         }
         if (Mouse.current.leftButton.wasPressedThisFrame && endTarget == null)
         {
-            char char2;
+            int[] plugIndex = GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugIndex;
             if (startAnchor == null)
             {
+                audioSource.clip = plugSound;
+                audioSource.PlayOneShot(electricSound);
+                //Debug.Log("not "+(plugScroll + (25 - plugPositions.Length)));
+                firstInt = plugIndex[plugScroll];
+                char1 = plugNames[plugIndex[plugScroll]];
+                Debug.Log(plugIndex[plugScroll]);
                 spawnedTransforms = new Transform[segmentCount]; // sets array length to the amount of segments there are
                 spawnedTransforms[0] = selectedPlug.transform;
                 Renderer selectedPlugRenderer = selectedPlug.GetComponent<Renderer>();
@@ -128,25 +147,59 @@ public class PlugSpawner : MonoBehaviour
                 selectedPlug.transform.parent = transform;
                 spawnedTransforms[5] = selectedPlug.transform;
                 List<Vector3> list = plugPositions.ToList();
+                List<int> list1 = plugIndex.ToList();
                 firstPlugScroll = plugScroll;
                 list.RemoveAt(firstPlugScroll);
+                list1.RemoveAt(firstPlugScroll);
                 plugPositions = list.ToArray();
+                GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugIndex = list1.ToArray();
                 keyInterScript.plugPositions = plugPositions;
-                char1 = plugNames[plugScroll];
+                //for (int i = 0; i < (plugIndex.Length); i++)
+                //{
+                //    Debug.Log(plugIndex[i]);
+                //}
+                //Debug.Log("Ran");
+                //Debug.Log("first "+firstPlugScroll);
             }
             else
             {
+                audioSource.clip = plugSound;
+                audioSource.PlayOneShot(electricSound);
+                //Debug.Log("not "+(plugScroll + (25 - plugPositions.Length)));
+                secondInt = plugIndex[plugScroll];
+                char2 = plugNames[plugIndex[plugScroll]];
+                Debug.Log(plugIndex[plugScroll]);
                 Renderer selectedPlugRenderer = selectedPlug.GetComponent<Renderer>();
                 selectedPlugRenderer.material = BlackPlainMaterial;
                 endTarget = selectedPlug.transform;
                 SpawnRope();
                 List<Vector3> list = plugPositions.ToList();
-                secondPlugScroll = plugScroll - 1;
-                list.RemoveAt(secondPlugScroll + 1);
+                List<int> list2 = plugIndex.ToList();
+                secondPlugScroll = plugScroll;
+                list.RemoveAt(secondPlugScroll);
+                list2.RemoveAt(secondPlugScroll);
                 plugPositions = list.ToArray();
+                GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugIndex = list2.ToArray();
                 keyInterScript.plugPositions = plugPositions;
-                char2 = plugNames[plugScroll];
+                Debug.Log("char1 "+char1);
+                Debug.Log("char2 "+char2);
                 GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugChars.Add(char1,char2);
+                GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugCharsReverse.Add(char2,char1);
+                GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().selectingPlugs = false;
+                //for (int i = 0; i < (plugIndex.Length); i++)
+                //{
+                //    Debug.Log(plugIndex[i]);
+                //}
+                //Debug.Log("Ran2");
+                //Debug.Log("first "+secondPlugScroll);
+                timer = Time.time + 10f;
+            }
+        }
+        if (timer <= Time.time)
+        {
+            foreach(Transform child in transform)
+            {
+                child.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             }
         }
     }
