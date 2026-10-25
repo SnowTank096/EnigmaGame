@@ -123,7 +123,7 @@ public class keyboard_interactions : MonoBehaviour
                 rotorTextObject = textObject.GetComponent<TMPro.TextMeshPro>();
                 scrollCount = int.Parse(rotorTextObject.text);
             }
-            if (scrollDelta.y > 0 )
+            if (scrollDelta.y > 0 ) //if you are scrolling down
             {   
                 if (keyIsPressed != 1)
                 {
@@ -169,7 +169,7 @@ public class keyboard_interactions : MonoBehaviour
                 }
                 rotorTextObject.text = scrollCount.ToString();
             } 
-            else if (scrollDelta.y < 0)
+            else if (scrollDelta.y < 0) //if you are scrolling up
             {
                 if (keyIsPressed != 1)
                 {
@@ -193,18 +193,18 @@ public class keyboard_interactions : MonoBehaviour
 
         if(Keyboard.current == null) return;
 
-        if (Keyboard.current.anyKey.wasPressedThisFrame && keyIsPressed == 0)
+        if (Keyboard.current.anyKey.wasPressedThisFrame && keyIsPressed == 0) //if a key was pressed
         {
-            foreach (var keyControl in Keyboard.current.allKeys)
+            foreach (var keyControl in Keyboard.current.allKeys) // goes through each key to see which was pressed
             {
-                if (activePressedKey == null && keyControl.wasPressedThisFrame)
+                if (activePressedKey == null && keyControl.wasPressedThisFrame) //if that key was pressed
                 {
 
                     
                     string buttonPressed = keyControl.name.ToUpper();
                     buttonPressedName = "Key_" + buttonPressed;
 
-                    if(_keyObjects.TryGetValue(buttonPressedName, out Transform keyTransform))
+                    if(_keyObjects.TryGetValue(buttonPressedName, out Transform keyTransform)) // tries to get the transform of that key if it is a letter
                     {
 
                         if (keyTransform != null && Mouse.current.scroll.ReadValue().y == 0 && !(Physics.Raycast(ray, out hit, maxDistance, interactionLayer)))
@@ -217,19 +217,19 @@ public class keyboard_interactions : MonoBehaviour
                             }
                             activePressedKey = keyTransform;
                         }
-                    } else if (Keyboard.current.spaceKey.wasPressedThisFrame)
+                    } else if (Keyboard.current.spaceKey.wasPressedThisFrame) // if space is pressed
                     {
                         swapCam();
-                    } else if (int.TryParse(keyControl.name, out int result) && result < 10 && GetComponent<EnigmaInternals>().selectingPlugs == false)
+                    } else if (int.TryParse(keyControl.name, out int result) && result < 10 && GetComponent<EnigmaInternals>().selectingPlugs == false) // if it is and number 0-9
                     {
-                        if (Time.time - lastClick <= 0.25f  && GameObject.Find("Plug"+keyControl.name).transform.childCount >= 2)
+                        if (Time.time - lastClick <= 0.25f  && GameObject.Find("Plug"+keyControl.name).transform.childCount >= 2) // if it was a double click
                         {
                             addVector3(GameObject.Find("Plug"+int.Parse(keyControl.name)));
                             char char1 = GameObject.Find("Plug"+int.Parse(keyControl.name)).GetComponent<PlugSpawner>().char1;
                             GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugChars.Remove(char1); // get the component and get char1 from plugs and use it to remove the char1 and char2 from the dictionar in engima internals with this GameObject.Find("Plug"+int.Parse(keyControl.name)).GetComponent<EnigmaInternals>().plugChars.Remove(char1);
                             Destroy(GameObject.Find("Plug"+int.Parse(keyControl.name)));
                         }
-                        else if (!GameObject.Find("Plug"+keyControl.name))
+                        else if (!GameObject.Find("Plug"+keyControl.name)) // if it was not a double click
                         {
                             GetComponent<EnigmaInternals>().selectingPlugs = true;
                             GameObject parentObject = new GameObject("Plug"+keyControl.name);
@@ -247,7 +247,7 @@ public class keyboard_interactions : MonoBehaviour
                 }
             }
         }
-        if (keyPressed && Keyboard.current.anyKey.wasReleasedThisFrame && (keyIsPressed == 1 || keyIsPressed == 2 || (Mouse.current.scroll.ReadValue().y == 0 && activePressedKey != null)))
+        if (keyPressed && Keyboard.current.anyKey.wasReleasedThisFrame && (keyIsPressed == 1 || keyIsPressed == 2 || (Mouse.current.scroll.ReadValue().y == 0 && activePressedKey != null))) // if a key was released
         {
             if(_keyObjects.TryGetValue(buttonPressedName, out Transform keyTransform))
             {
@@ -258,7 +258,7 @@ public class keyboard_interactions : MonoBehaviour
         }
     }
     
-    void animateKeyPress(Transform keyTransform,string lightPosName)
+    void animateKeyPress(Transform keyTransform,string lightPosName) // animates the key, plays the sound, and displays the light
     {
         Vector3 initialPos = keyTransform.localPosition;
         keyPressed = true;
@@ -282,7 +282,7 @@ public class keyboard_interactions : MonoBehaviour
             audioSourceThree.Play();
         }
     }
-    void animateKeyRelease(Transform keyTransform)
+    void animateKeyRelease(Transform keyTransform) // resets everything the animateKeyPress did
     {
         Vector3 initialPos = keyTransform.localPosition;
         keyPressed = false;
@@ -292,7 +292,7 @@ public class keyboard_interactions : MonoBehaviour
 
         keyTransform.localPosition = releasedPos;
     }
-    void addVector3(GameObject plug)
+    void addVector3(GameObject plug) // adds a plug 
     {
         audioSource.clip = unplugSound;
         audioSource.Play();
@@ -323,18 +323,6 @@ public class keyboard_interactions : MonoBehaviour
                 break;
             }
         }
-        //if (firstInt < plugIndex[0])
-        //{
-        //    list2.Insert(firstArrayPos, firstInt);
-        //    list2.Insert(secondArrayPos + 1, secondInt);
-        //    list.Insert(firstArrayPos, firstVector);
-        //    list.Insert(secondArrayPos + 1, secondVector);
-        //} else {
-        //    list2.Insert(firstInt, firstInt);
-        //    list2.Insert(secondInt, secondInt);
-        //    list.Insert(firstInt, firstVector);
-        //    list.Insert(secondInt, secondVector);
-        //}
         plugPositions = list.ToArray();
         GetComponent<EnigmaInternals>().plugIndex = list2.ToArray();
         GetComponent<EnigmaInternals>().plugChars.Remove(plug.GetComponent<PlugSpawner>().char1);
@@ -344,7 +332,7 @@ public class keyboard_interactions : MonoBehaviour
             Debug.Log(GetComponent<EnigmaInternals>().plugIndex[i]);
         }
     }
-    void swapCam()
+    void swapCam() //swaps the camera position
     {
         audioSource.clip = cameraSound;
         audioSource.Play();

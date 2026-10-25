@@ -57,7 +57,7 @@ public class PlugSpawner : MonoBehaviour
         selectedPlug = Instantiate(Plug, plugStartVector, Quaternion.Euler(0,0,90));
         selectedPlug.transform.parent = transform;
     }
-    void SpawnRope()
+    void SpawnRope() // creates the wire between the plugs
     {
         Rigidbody previousRigidBody = startAnchor; //sets the first rigid body that the first rope segemnt will connect to to the starting anchor point
 
@@ -130,11 +130,10 @@ public class PlugSpawner : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame && endTarget == null)
         {
             int[] plugIndex = GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugIndex;
-            if (startAnchor == null)
+            if (startAnchor == null) // sets the first plug
             {
                 audioSource.clip = plugSound;
                 audioSource.PlayOneShot(electricSound);
-                //Debug.Log("not "+(plugScroll + (25 - plugPositions.Length)));
                 firstInt = plugIndex[plugScroll];
                 char1 = plugNames[plugIndex[plugScroll]];
                 Debug.Log(plugIndex[plugScroll]);
@@ -154,18 +153,11 @@ public class PlugSpawner : MonoBehaviour
                 plugPositions = list.ToArray();
                 GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugIndex = list1.ToArray();
                 keyInterScript.plugPositions = plugPositions;
-                //for (int i = 0; i < (plugIndex.Length); i++)
-                //{
-                //    Debug.Log(plugIndex[i]);
-                //}
-                //Debug.Log("Ran");
-                //Debug.Log("first "+firstPlugScroll);
             }
-            else
+            else // sets the second plug
             {
                 audioSource.clip = plugSound;
                 audioSource.PlayOneShot(electricSound);
-                //Debug.Log("not "+(plugScroll + (25 - plugPositions.Length)));
                 secondInt = plugIndex[plugScroll];
                 char2 = plugNames[plugIndex[plugScroll]];
                 Debug.Log(plugIndex[plugScroll]);
@@ -186,16 +178,10 @@ public class PlugSpawner : MonoBehaviour
                 GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugChars.Add(char1,char2);
                 GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().plugCharsReverse.Add(char2,char1);
                 GameObject.Find("enigma machine v1").GetComponent<EnigmaInternals>().selectingPlugs = false;
-                //for (int i = 0; i < (plugIndex.Length); i++)
-                //{
-                //    Debug.Log(plugIndex[i]);
-                //}
-                //Debug.Log("Ran2");
-                //Debug.Log("first "+secondPlugScroll);
                 timer = Time.time + 10f;
             }
         }
-        if (timer <= Time.time)
+        if (timer <= Time.time) // waits ten seconds before freezing the plug wire so it doesnt jitter
         {
             foreach(Transform child in transform)
             {

@@ -17,7 +17,7 @@ public class EnigmaInternals : MonoBehaviour
 
     [SerializeField] public bool selectingPlugs;
 
-    public char rotorForwardSir(char letter,int rotorStepCount1,int rotorStepCount2, int rotorStepCount3)
+    public char rotorForwardSir(char letter,int rotorStepCount1,int rotorStepCount2, int rotorStepCount3) // sends in a letter and spits out the encrypted letter from the rotor part of the machine
     {
         letter = char.ToUpper(letter);
 
@@ -69,7 +69,7 @@ public class EnigmaInternals : MonoBehaviour
         return config[index];
     }
 
-    public char rotorBackwardSir(char letter,int rotorStepCount1,int rotorStepCount2, int rotorStepCount3)
+    public char rotorBackwardSir(char letter,int rotorStepCount1,int rotorStepCount2, int rotorStepCount3) // sends in a letter and spits out the encrypted letter from the rotor part of the machine backwards
     {
         letter = char.ToUpper(letter);
         char [] config1Back = new char[26];
@@ -100,7 +100,7 @@ public class EnigmaInternals : MonoBehaviour
         signal = (letter1 - 'A' - rotorStepCount1 + 26) % 26;
         return (char)(signal+'A');
     }
-    public string Convert(char letter,int rotorStepCount1,int rotorStepCount2,int rotorStepCount3)
+    public string Convert(char letter,int rotorStepCount1,int rotorStepCount2,int rotorStepCount3) // this is the list of ecryption methods the machine runs through
     {
         char convertedLetter;
         // Starting conversion 

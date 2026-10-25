@@ -18,7 +18,7 @@ public class RopeVisualizer : MonoBehaviour
     }
 
 
-    void LateUpdate()
+    void LateUpdate() // draws the plug wire on screen
     {
         if (ropeSegments == null || ropeSegments.Length == 0) return;
 
